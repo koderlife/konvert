@@ -20,7 +20,7 @@ async function getRates(currency) {
 	}
 }
 
-module.exports = async function(amount, currency, dest = to) {
+module.exports.from = async function(amount, currency, dest = to) {
 	await getRates(dest);
 
 	return amount * rates[currency][dest];
