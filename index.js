@@ -7,12 +7,13 @@ let to = null;
 
 async function getRates(currency) {
 	if (!rates[currency]) {
-		const result = await axios.get(openrates_url + currency.toUpperCase())
+		const result = await axios.get(openrates_url + currency)
 
-		result.data.rates.forEach((rate, currency) => {
-			if (!rates[result.data.base]) {
-				rates[result.data.base] = {}
-			}
+		Object.keys(result.data.rates).forEach(currency => {
+			const rate = result.data.rates[currency];
+
+			rates[result.data.base] = rates[result.data.base] || {}
+			rates[currency] = rates[currency] || {}
 
 			rates[result.data.base][currency] = rate;
 			rates[currency][result.data.base] = 1 / rate;
@@ -21,13 +22,15 @@ async function getRates(currency) {
 }
 
 module.exports.from = async function(amount, currency, dest = to) {
+	currency = currency.toUpperCase();
+	dest = dest.toUpperCase();
 	await getRates(dest);
 
 	return amount * rates[currency][dest];
 }
 
 module.exports.to = function(currency) {
-	to = currency;
+	to = currency.toUpperCase();
 
 	return this;
 }
