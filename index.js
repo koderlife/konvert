@@ -2,7 +2,8 @@ const axios = require('axios');
 const openrates_url = 'https://api.openrates.io/latest?base=';
 
 const rates = {}
-const to = null;
+
+let to = null;
 
 async function getRates(currency) {
 	if (!rates[currency]) {
