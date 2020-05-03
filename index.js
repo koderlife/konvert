@@ -4,7 +4,7 @@ const openrates_url = 'https://api.openrates.io/latest?base=';
 const rates = {}
 const to = null;
 
-function getRates(currency) {
+async function getRates(currency) {
 	if (!rates[currency]) {
 		const result = await axios.get(openrates_url + currency.toUpperCase())
 
@@ -19,16 +19,14 @@ function getRates(currency) {
 	}
 }
 
-module.exports.to = function(currency) {
-	getRates(currency);
+module.exports = async function(amount, currency, dest = to) {
+	await getRates(dest);
 
+	return amount * rates[currency][dest];
+}
+
+module.exports.to = function(currency) {
 	to = currency;
 
 	return this;
-}
-
-module.exports.from = function(amount, currency) {
-	getRates(currency);
-
-	return amount * rates[currency][to];
 }
