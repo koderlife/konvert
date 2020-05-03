@@ -1,0 +1,16 @@
+{
+  "name": "@koderlife/konvert",
+  "version": "0.0.0",
+  "description": "Currency exchange conversion, with auto updated rates",
+  "author": {
+    "name": "Rubén González",
+    "email": "ruben.gonzalezgomez@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  }
+}
